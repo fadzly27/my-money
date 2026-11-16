@@ -430,7 +430,7 @@
   function statusLine() {
     const s = $('status');
     let text = '', warn = false;
-    if (mode === 'local') text = 'Saved on this device only. Sign in to claude.ai to sync across devices.';
+    if (mode === 'local') text = window.claude ? 'Saved on this device only. Sign in to claude.ai to sync across devices.' : 'Saved on this device only. Clearing browser data will remove it.';
     else if (queue.length && !navigator.onLine) { text = `Offline · ${queue.length} change${queue.length > 1 ? 's' : ''} will sync when you're back online`; warn = true; }
     else if (queue.length) { text = `Syncing ${queue.length} change${queue.length > 1 ? 's' : ''}…`; warn = true; }
     else if (!navigator.onLine) { text = "Offline · you can keep adding, it'll sync later"; warn = true; }

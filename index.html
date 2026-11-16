@@ -12,7 +12,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#f2f2f7">
 </head>
-<body><title>My Money</title>
+<body>
+<title>My Money</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
@@ -267,7 +268,7 @@
     </div>
     <div class="seg" role="radiogroup" aria-label="Account type">
       <label><input type="radio" name="accType" value="bank" checked><span>Bank / e-wallet</span></label>
-      <label><input type="radio" name="accType" value="asb"><span>ASB</span></label>
+      <label><input type="radio" name="accType" value="asb"><span>Investment</span></label>
     </div>
     <div class="list">
       <div class="field">
@@ -652,6 +653,7 @@
     $('accTitle').textContent = editing ? 'Edit Account' : 'New Account';
     const kind = editing ? editing.jenis : (type || 'bank');
     document.querySelector(`input[name="accType"][value="${kind}"]`).checked = true;
+    $('accName').placeholder = kind === 'asb' ? 'e.g. ASB, Tabung Haji' : 'e.g. Maybank';
     $('accName').value = editing ? editing.nama : '';
     $('accBal').value = editing ? (((editing.bakiAwal || 0) + net(editing.id, txs)) / 100).toFixed(2) : '';
     $('lblBal').textContent = editing ? 'Actual balance' : 'Balance (RM)';
@@ -665,7 +667,7 @@
     if (e.target.closest('#addAccountRow')) openAccount(null);
   });
   document.querySelectorAll('input[name="accType"]').forEach(r => r.addEventListener('change', () => {
-    if (!editing && r.checked && r.value === 'asb' && !$('accName').value) $('accName').value = 'ASB';
+    $('accName').placeholder = r.value === 'asb' ? 'e.g. ASB, Tabung Haji' : 'e.g. Maybank';
   }));
 
   $('accountForm').addEventListener('submit', (e) => {

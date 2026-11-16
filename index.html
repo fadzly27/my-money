@@ -38,7 +38,9 @@
   }
 
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body {
+    margin: 0;
     background: var(--bg); color: var(--fg);
     font-family: var(--font); font-size: 16px; line-height: 1.4;
     padding-block: 12px calc(110px + env(safe-area-inset-bottom, 0px));
@@ -127,7 +129,7 @@
   /* Floating add button */
   .fab { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 10;
     border: 0; border-radius: 999px; padding: 14px 26px; background: var(--accent); color: #fff; font-weight: 600; font-size: 1rem;
-    box-shadow: 0 6px 20px rgb(0 122 255 / .3); display: flex; align-items: center; gap: 8px; }
+    box-shadow: 0 6px 20px rgb(0 122 255 / .3); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
   .fab svg { width: 18px; height: 18px; }
   .fab:disabled { opacity: .5; cursor: default; }
 
@@ -430,7 +432,7 @@
   function statusLine() {
     const s = $('status');
     let text = '', warn = false;
-    if (mode === 'local') text = 'Saved on this device only. Sign in to claude.ai to sync across devices.';
+    if (mode === 'local') text = window.claude ? 'Saved on this device only. Sign in to claude.ai to sync across devices.' : 'Saved on this device only. Clearing browser data will remove it.';
     else if (queue.length && !navigator.onLine) { text = `Offline · ${queue.length} change${queue.length > 1 ? 's' : ''} will sync when you're back online`; warn = true; }
     else if (queue.length) { text = `Syncing ${queue.length} change${queue.length > 1 ? 's' : ''}…`; warn = true; }
     else if (!navigator.onLine) { text = "Offline · you can keep adding, it'll sync later"; warn = true; }

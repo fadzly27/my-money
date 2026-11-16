@@ -278,7 +278,7 @@
           <option value="Maybank"><option value="CIMB"><option value="Bank Islam"><option value="RHB">
           <option value="Public Bank"><option value="Hong Leong"><option value="AmBank"><option value="BSN">
           <option value="Bank Rakyat"><option value="Affin Bank"><option value="GXBank"><option value="Touch 'n Go eWallet">
-          <option value="ASB"><option value="ASB 2">
+          <option value="Investment"><option value="Tabung Haji"><option value="Unit trust"><option value="Gold">
         </datalist>
       </div>
       <div class="field"><label for="accBal" id="lblBal">Balance (RM)</label><input id="accBal" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off"></div>
@@ -485,7 +485,7 @@
           <span class="main"><strong>${esc(a.nama)}</strong><small>${a.jenis === 'asb' ? 'Investment' : 'Bank / e-wallet'}${a._pending ? ' · waiting to sync' : ''}</small></span>
           <span class="end num ${b < 0 && !hidden ? 'neg' : ''}">${money(b)}</span><span class="chev" aria-hidden="true">›</span></button>`;
       }).join('');
-      const empty = accounts.length ? '' : '<div class="empty">Add each bank with its current balance, and an ASB account to track savings.</div>';
+      const empty = accounts.length ? '' : '<div class="empty">Add each bank with its current balance, and an investment account to track savings.</div>';
       $('accountList').innerHTML = empty + rows + '<button type="button" class="row link" id="addAccountRow">Add Account</button>';
     }
 
@@ -610,7 +610,7 @@
     $('fieldTo').hidden = t !== 'pindah';
     $('fieldCat').hidden = t !== 'belanja';
     $('lblAccount').textContent = t === 'masuk' ? 'To' : 'From';
-    $('txNote').placeholder = t === 'belanja' ? 'e.g. lunch' : t === 'masuk' ? 'e.g. salary' : 'e.g. monthly ASB';
+    $('txNote').placeholder = t === 'belanja' ? 'e.g. lunch' : t === 'masuk' ? 'e.g. salary' : 'e.g. monthly investment';
     $('txErr').textContent = '';
   }
   $('txCat').innerHTML = CATEGORIES.map(c => `<option>${esc(c)}</option>`).join('');
@@ -653,7 +653,7 @@
     $('accTitle').textContent = editing ? 'Edit Account' : 'New Account';
     const kind = editing ? editing.jenis : (type || 'bank');
     document.querySelector(`input[name="accType"][value="${kind}"]`).checked = true;
-    $('accName').placeholder = kind === 'asb' ? 'e.g. ASB, Tabung Haji' : 'e.g. Maybank';
+    $('accName').placeholder = kind === 'asb' ? 'e.g. Investment' : 'e.g. Maybank';
     $('accName').value = editing ? editing.nama : '';
     $('accBal').value = editing ? (((editing.bakiAwal || 0) + net(editing.id, txs)) / 100).toFixed(2) : '';
     $('lblBal').textContent = editing ? 'Actual balance' : 'Balance (RM)';
@@ -667,7 +667,7 @@
     if (e.target.closest('#addAccountRow')) openAccount(null);
   });
   document.querySelectorAll('input[name="accType"]').forEach(r => r.addEventListener('change', () => {
-    $('accName').placeholder = r.value === 'asb' ? 'e.g. ASB, Tabung Haji' : 'e.g. Maybank';
+    $('accName').placeholder = r.value === 'asb' ? 'e.g. Investment' : 'e.g. Maybank';
   }));
 
   $('accountForm').addEventListener('submit', (e) => {

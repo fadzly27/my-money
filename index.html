@@ -481,7 +481,7 @@
         const ini = esc(a.nama.replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase() || '•');
         return `<button type="button" class="row" data-acc="${esc(a.id)}">
           <span class="badge ${a.jenis === 'asb' ? 'asb' : ''}" aria-hidden="true">${ini}</span>
-          <span class="main"><strong>${esc(a.nama)}</strong><small>${a.jenis === 'asb' ? 'Savings' : 'Bank / e-wallet'}${a._pending ? ' · waiting to sync' : ''}</small></span>
+          <span class="main"><strong>${esc(a.nama)}</strong><small>${a.jenis === 'asb' ? 'Investment' : 'Bank / e-wallet'}${a._pending ? ' · waiting to sync' : ''}</small></span>
           <span class="end num ${b < 0 && !hidden ? 'neg' : ''}">${money(b)}</span><span class="chev" aria-hidden="true">›</span></button>`;
       }).join('');
       const empty = accounts.length ? '' : '<div class="empty">Add each bank with its current balance, and an ASB account to track savings.</div>';
